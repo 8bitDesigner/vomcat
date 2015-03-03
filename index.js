@@ -12,6 +12,12 @@ var express = require('express')
 app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'ejs');
 
+// Set up heroku heartbeet
+require('./app/lib/keepalive')(app, {
+  route: 'keepalive',
+  timeout: 600000
+})
+
 // Serve static assets
 app.use(express.static('app/public' /*, { maxAge: 86400000 } */));
 app.use(express.static('node_modules/bootstrap/dist', { maxAge: 86400000 }));
@@ -42,17 +48,11 @@ app.delete('/voms/:timestamp', function(req, res) {
   })
 })
 
-app.get('/healthcheck', function() {
-  console.log('beat')
-  res.send(205)
-})
-
 app.use(function(err, req, res, next) {
   res.render('error', {message: err.message, error: err})
 })
 
 app.listen(port, function() {
-  console.log(process.env)
   console.log('Now listening on port ', port)
 })
 
