@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
+.calendar {
+  overflow: hidden;
+}
+
+.day {
+  float: left;
+  width: 13%;
+  margin: .75%;
+  padding: 10px;
+  text-align: center;
+}
+
+.day-0 { margin-left: 0; }
+.day-6 { margin-right: 0; }
+
+.day-first.day-1 { margin-left: calc(14.5% * 1); }
+.day-first.day-2 { margin-left: calc(14.5% * 2); }
+.day-first.day-3 { margin-left: calc(14.5% * 3); }
+.day-first.day-4 { margin-left: calc(14.5% * 4); }
+.day-first.day-5 { margin-left: calc(14.5% * 5); }
+.day-first.day-6 { margin-left: calc(14.5% * 6); }
+
+.day.today {
+  font-weight: bold;
+  color: red;
+}
+
+.day-vom {
+  background: #f0ad4e;
+  font-weight: bold;
+}
+
+.day-vom.today {
+  color: black;
+}
