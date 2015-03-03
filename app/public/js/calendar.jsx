@@ -11,7 +11,7 @@ module.exports = class Calendar extends React.Component {
   set month(newVal) { this.setState({month: newVal }) }
 
   classNamesFor(date) {
-    let classes = ['day', `day-${date.day()}`]
+    var classes = ['day', `day-${date.day()}`]
 
     if (date.isSame(new Date(), 'day')) {
       classes.push('today')
@@ -27,11 +27,11 @@ module.exports = class Calendar extends React.Component {
   }
 
   render() {
-    let daysInMonth = this.month.daysInMonth()
+    var daysInMonth = this.month.daysInMonth()
       , days = []
 
-    for (let i = 1; i <= daysInMonth; i++) {
-      let day = this.month.date(i)
+    for (var i = 1; i <= daysInMonth; i++) {
+      var day = this.month.date(i)
       days.push(<li className={this.classNamesFor(day).join(' ')} key={i}>{day.format('D')}</li>)
     }
 

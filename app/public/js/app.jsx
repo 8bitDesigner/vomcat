@@ -69,11 +69,8 @@ Vom.Month = class VomMonth extends Calendar {
   get voms()       { return this.props.voms.map(v => moment(v)) }
 
   classNamesFor(date) {
-    let classes = super(date)
-
-    if (this.voms.some(v => v.isSame(date, 'day'))) {
-      classes.push('day-vom')
-    }
+    var classes = super(date)
+    if (this.voms.some(v => v.isSame(date, 'day'))) { classes.push('day-vom') }
     return classes
   }
 }
