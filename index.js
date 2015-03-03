@@ -1,8 +1,6 @@
 require("babel/register");
 
 var express = require('express')
-  , browserify = require('browserify')
-  , reactify = require('reactify')
   , path = require('path')
   , app = express()
   , port = process.env.PORT || 3001
