@@ -1,7 +1,7 @@
 const TEST_DB = 2
-var redis = require('../../lib/redis')(TEST_DB)
+var redis = require('../../app/lib/redis')(TEST_DB)
+  , Voms = require('../../app/lib/voms')
   , fixture = require('../fixtures/voms')
-  , Voms = require('../../lib/voms')
   , assert = require('assert')
 
 function resetRedis(done) {

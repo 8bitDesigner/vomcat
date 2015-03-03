@@ -6,25 +6,25 @@ var express = require('express')
   , path = require('path')
   , app = express()
   , port = process.env.PORT || 3001
-  , redis = require('./lib/redis')
-  , Voms = require('./lib/Voms')
+  , redis = require('./app/lib/redis')
+  , Voms = require('./app/lib/Voms')
   , voms = new Voms(redis())
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'ejs');
 
 // Serve bundled JS
 app.get('/js/app.js', function(req, res) {
   var js = browserify()
-  js.require('./public/js/app.jsx', {expose: 'App'})
+  js.require('./app/public/js/app.jsx', {expose: 'App'})
 
   res.contentType('text/javascript')
   js.transform(reactify, {es6: true, target: 'es5'}).bundle().pipe(res);
 })
 
 // Serve static assets
-app.use(express.static('public' /*, { maxAge: 86400000 } */));
+app.use(express.static('app/public' /*, { maxAge: 86400000 } */));
 app.use(express.static('node_modules/bootstrap/dist', { maxAge: 86400000 }));
 
 // Serve errything else

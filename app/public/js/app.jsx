@@ -1,5 +1,5 @@
-var React = require('../../node_modules/react/dist/react.min.js')
-  , moment = require('../../node_modules/moment/min/moment.min.js')
+var React = require('../../../node_modules/react/dist/react.min.js')
+  , moment = require('../../../node_modules/moment/min/moment.min.js')
   , Calendar = require('./calendar.jsx')
   , request = require('browser-request')
 
