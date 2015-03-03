@@ -51,12 +51,17 @@ Vom.Create = class VomCreate extends React.Component {
 }
 
 Vom.Since = class VomSince extends React.Component {
+  get lastVom() { return this.props.lastVom }
+  get message() {
+    if (this.lastVom) {
+      return `It has been ${moment(this.lastVom).fromNow(true)} since last vom!`
+    } else {
+      return `No voms yet, hooray!`
+    }
+  }
+
   render() {
-    return (
-      <h1 className="h4">
-        It has been {moment(this.props.lastVom).fromNow(true)} since last vom!
-      </h1>
-    )
+    return <h1 className="h4">{this.message}</h1>
   }
 }
 
