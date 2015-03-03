@@ -14,15 +14,6 @@ var express = require('express')
 app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'ejs');
 
-// Serve bundled JS
-app.get('/js/app.js', function(req, res) {
-  var js = browserify()
-  js.require('./app/public/js/app.jsx', {expose: 'App'})
-
-  res.contentType('text/javascript')
-  js.transform(reactify, {es6: true, target: 'es5'}).bundle().pipe(res);
-})
-
 // Serve static assets
 app.use(express.static('app/public' /*, { maxAge: 86400000 } */));
 app.use(express.static('node_modules/bootstrap/dist', { maxAge: 86400000 }));
