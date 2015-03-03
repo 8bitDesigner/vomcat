@@ -7,7 +7,7 @@ var express = require('express')
   , app = express()
   , port = process.env.PORT || 3001
   , redis = require('./app/lib/redis')
-  , Voms = require('./app/lib/Voms')
+  , Voms = require('./app/lib/voms')
   , voms = new Voms(redis())
 
 // view engine setup
