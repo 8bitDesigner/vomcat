@@ -42,10 +42,17 @@ app.delete('/voms/:timestamp', function(req, res) {
   })
 })
 
+app.get('/healthcheck', function() {
+  console.log('beat')
+  res.send(205)
+})
+
 app.use(function(err, req, res, next) {
   res.render('error', {message: err.message, error: err})
 })
 
 app.listen(port, function() {
+  console.log(process.env)
   console.log('Now listening on port ', port)
 })
+
