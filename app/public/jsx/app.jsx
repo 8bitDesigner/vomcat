@@ -45,7 +45,7 @@ Vom.Create = class VomCreate extends React.Component {
       <button
         className="btn btn-lg btn-primary btn-block"
         onClick={this.props.onSubmit}
-      >"Did cat vom?"</button>    
+      >"Did cat vom?"</button>
     )
   }
 }
@@ -69,13 +69,14 @@ Vom.Month = class VomMonth extends Calendar {
   get voms()       { return this.props.voms.map(v => moment(v)) }
 
   classNamesFor(date) {
-    var classes = super(date)
+    var classes = super.classNamesFor(date)
     if (this.voms.some(v => v.isSame(date, 'day'))) { classes.push('day-vom') }
     return classes
   }
 }
 
-module.exports = class App {
-  constructor(node) { React.render(<Vom />, node) }
+class App {
+  constructor() { React.render(<Vom />, document.getElementById('ReactApp')) }
 }
 
+new App()
