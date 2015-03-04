@@ -7,7 +7,6 @@
     "test": "mocha --require babel/register --recursive test",
     "watch": "mocha --require babel/register --recursive -w test",
     "develop": "supervisor -e 'js,ejs,jsx' index.js",
-    "build": "browserify -r ./app/public/jsx/app.jsx:App -o app/public/js/app.js",
     "start": "node ./index.js"
   },
   "author": "Paul Sweeney <paul@8-bitdesign.com>",
@@ -19,11 +18,8 @@
     "redis": "^0.12.1"
   },
   "devDependencies": {
-    "gulp-sass": "^1.3.3",
     "bootstrap-sass": "^3.3.3",
     "babelify": "^5.0.3",
-    "vinyl-source-stream": "^1.0.0",
-    "gulp": "^3.8.11",
     "browser-request": "^0.3.3",
     "browserify": "^8.1.3",
     "mocha": "^2.1.0",
