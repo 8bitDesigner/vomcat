@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --require babel/register --recursive test",
     "watch": "mocha --require babel/register --recursive -w test",
-    "develop": "supervisor -e 'js,ejs,jsx' index.js",
+    "develop": "supervisor --ignore app/public -e 'js,ejs' index.js",
     "start": "node ./index.js"
   },
   "author": "Paul Sweeney <paul@8-bitdesign.com>",

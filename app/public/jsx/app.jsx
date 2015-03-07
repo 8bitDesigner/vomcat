@@ -1,6 +1,6 @@
-var React = require('../../../node_modules/react/dist/react.min.js')
-  , moment = require('../../../node_modules/moment/min/moment.min.js')
-  , Calendar = require('./calendar.jsx')
+var React = require('react')
+  , moment = require('moment')
+  , Calendar = require('./calendar')
   , request = require('browser-request')
 
 class Vom extends React.Component {
