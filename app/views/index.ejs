@@ -16,10 +16,12 @@
     </div>
   </nav>
 
-  <div class="container" id="ReactApp"></div>
+  <div class="container" id="ReactApp"><%- markup %></div>
 
-  <script src="/js/libs.js"></script>
   <script src="/js/app.js"></script>
+  <script>
+    new App(<%- data %>).start(document.getElementById('ReactApp'))
+  </script>
 </body>
 </html>
 

@@ -2,57 +2,64 @@ require("babel/register");
 
 var express = require('express')
   , path = require('path')
-  , app = express()
+  , server = express()
   , port = process.env.PORT || 3001
-  , redis = require('./app/lib/redis')
-  , Voms = require('./app/lib/voms')
-  , voms = new Voms(redis())
+  , redis = require('./lib/redis')()
+  , VomModel = require('./lib/voms')
+  , voms = new VomModel(redis)
+  , App = require('./app')
 
 // view engine setup
-app.set('views', path.join(__dirname, 'app', 'views'));
-app.set('view engine', 'ejs');
+server.set('views', path.join(__dirname, 'app', 'views'));
+server.set('view engine', 'ejs');
 
 // Set up heroku heartbeet
-require('./app/lib/keepalive')(app, {
-  route: 'keepalive',
-  timeout: 600000
-})
+require('./lib/keepalive')(server, { route: 'keepalive', timeout: 600000 })
 
 // Serve static assets
-app.use(express.static('app/public' /*, { maxAge: 86400000 } */));
-app.use(express.static('node_modules/bootstrap/dist', { maxAge: 86400000 }));
+server.use(express.static('app/public' /*, { maxAge: 86400000 } */));
+server.use(express.static('node_modules/bootstrap/dist', { maxAge: 86400000 }));
 
 // Serve errything else
-app.get('/', function(req, res) {
-  res.render('index', {title: 'Vomcat'})
+server.get('/', function(req, res) {
+  voms.get(function(err, dates) {
+    app = new App(dates)
+
+    res.render('index', {
+      title: 'Vomcat',
+      markup: app.start(),
+      data: JSON.stringify(dates)
+    })
+  })
+
 })
 
-app.get('/voms', function(req, res) {
-  voms.get(function(err, voms) {
+server.get('/voms', function(req, res) {
+  voms.get(function(err, dates) {
     if (err) { return next(err) }
-    res.send(voms)
+    res.send(dates)
   })
 })
 
-app.put('/voms', function(req, res) {
+server.put('/voms', function(req, res) {
   voms.create(function(err) {
     if (err) { return next(err) }
-    res.status(204).send() 
+    res.status(204).send()
   })
 })
 
-app.delete('/voms/:timestamp', function(req, res) {
+server.delete('/voms/:timestamp', function(req, res) {
   voms.remove(req.params.timestamp, function(err) {
     if (err) { return next(err) }
-    res.status(204).send() 
+    res.status(204).send()
   })
 })
 
-app.use(function(err, req, res, next) {
+server.use(function(err, req, res, next) {
   res.render('error', {message: err.message, error: err})
 })
 
-app.listen(port, function() {
+server.listen(port, function() {
   console.log('Now listening on port ', port)
 })
 

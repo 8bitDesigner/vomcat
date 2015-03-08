@@ -1,6 +1,6 @@
 const TEST_DB = 2
-var redis = require('../../app/lib/redis')(TEST_DB)
-  , Voms = require('../../app/lib/voms')
+var redis = require('../../lib/redis')(TEST_DB)
+  , Voms = require('../../lib/voms')
   , fixture = require('../fixtures/voms')
   , assert = require('assert')
 
