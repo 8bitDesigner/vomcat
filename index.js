@@ -14,7 +14,7 @@ server.set('views', path.join(__dirname, 'app', 'views'));
 server.set('view engine', 'ejs');
 
 // Set up heroku heartbeet
-require('./lib/keepalive')(server, { route: 'keepalive', timeout: 600000 })
+// require('./lib/keepalive')(server, { route: 'keepalive', timeout: 600000 })
 
 // Serve static assets
 server.use(express.static('app/public' /*, { maxAge: 86400000 } */));
