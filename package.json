@@ -4,32 +4,35 @@
   "description": "Record when cat vom",
   "main": "index.js",
   "scripts": {
-    "test": "make test",
-    "develop": "make develop -j4",
     "start": "node ./index.js"
   },
   "author": "Paul Sweeney <paul@8-bitdesign.com>",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.14.0",
-    "babel": "^4.5.5",
-    "ejs": "^2.2.4",
-    "express": "^4.11.2",
-    "moment": "^2.9.0",
-    "react": "0.13.0-rc1",
-    "redis": "^0.12.1"
+    "aws-sdk": "^2.14.0"
   },
   "devDependencies": {
-    "babelify": "^5.0.3",
-    "bootstrap-sass": "^3.3.3",
-    "browser-request": "^0.3.3",
-    "browserify": "^8.1.3",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap-sass": "^3.3.7",
+    "css-loader": "^0.28.0",
     "dotenv": "^4.0.0",
-    "mocha": "^2.1.0",
-    "watchify": "^2.4.0"
+    "ejs": "^2.2.4",
+    "express": "^4.11.2",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "moment": "^2.9.0",
+    "node-sass": "^4.5.2",
+    "react": "0.13.0-rc1",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.3"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "6.9.x"
   },
   "repository": {
     "type": "git",

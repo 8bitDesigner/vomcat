@@ -1,5 +1,7 @@
 node_modules/
+.serverless
 .DS_Store
 .env
 .sw*
-
+2017-2-18-voms.txt
+build/
