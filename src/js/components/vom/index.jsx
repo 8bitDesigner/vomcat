@@ -12,7 +12,7 @@ export default class Vom extends React.Component {
       voms: []
     }
 
-    this.model = new VomModel()
+    this.model = new VomModel(process.env.API)
 
     this.model.get((error, dates) => {
       if (error) {

@@ -3,12 +3,13 @@ require('dotenv').load()
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const BUILD = path.resolve(__dirname, 'build')
 const SRC = path.resolve(__dirname, 'src')
 const NODE_MODULES = path.resolve(__dirname, 'node_modules')
 
-const extractSass = new ExtractTextPlugin({filename: '[name].css'})
+const extractSass = new ExtractTextPlugin({filename: '[name]-[chunkhash].css'})
 
 module.exports = {
   devtool: 'source-map',
@@ -18,7 +19,10 @@ module.exports = {
   ],
   output: {
     path: BUILD,
-    filename: '[name].js'
+    filename: '[name]-[chunkhash].js'
+  },
+  devServer: {
+    port: 3001
   },
   module: {
     rules: [
@@ -49,6 +53,10 @@ module.exports = {
             }
           ]
         })
+      },
+      {
+        test: /\.ejs$/,
+        loader: 'ejs-compiled-loader'
       }
     ]
   },
@@ -56,11 +64,11 @@ module.exports = {
     extractSass,
     new webpack.DefinePlugin({
       'process.env': {
-        DYNAMODB_TABLE: `'${process.env.DYNAMODB_TABLE}'`,
-        AWS_ACCESS_KEY_ID: `'${process.env.AWS_ACCESS_KEY_ID}'`,
-        AWS_SECRET_ACCESS_KEY: `'${process.env.AWS_SECRET_ACCESS_KEY}'`,
-        AWS_REGION: `'${process.env.AWS_REGION}'`
+        API: `'https://52xzgj225c.execute-api.us-west-2.amazonaws.com/dev/voms'`
       }
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/views/index.ejs'
     })
   ]
 }
