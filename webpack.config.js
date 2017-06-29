@@ -31,7 +31,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['es2015', 'react']
+          presets: ['react-app']
         }
       },
       {
@@ -64,10 +64,11 @@ module.exports = {
     extractSass,
     new webpack.DefinePlugin({
       'process.env': {
-        API: `'https://52xzgj225c.execute-api.us-west-2.amazonaws.com/dev/voms'`
+        API: `'https://u4v2l5ctsd.execute-api.us-west-2.amazonaws.com/dev/voms'`
       }
     }),
     new HtmlWebpackPlugin({
+      title: 'Vomcat',
       template: 'src/views/index.ejs'
     })
   ]

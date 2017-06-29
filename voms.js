@@ -8,7 +8,7 @@ function respond (statusCode, body) {
   const headers = {
     'Access-Control-Allow-Methods': 'GET,POST,DELETE,OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Requested-With,X-Requested-By,X-Api-Key',
-    'Access-Control-Allow-Origin': 'http://localhost:3001'
+    'Access-Control-Allow-Origin': process.env.ALLOW_ORIGIN
   }
 
   if (body) {
