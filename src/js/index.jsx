@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
 import reducer from './reducers/index.js'
-import VomApp from './components/index.jsx'
+import VomApp from './containers/index.jsx'
 
 const store = createStore(reducer, applyMiddleware(thunk))
 
