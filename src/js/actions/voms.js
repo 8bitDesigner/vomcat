@@ -9,7 +9,7 @@ export const fetchVoms = () => dispatch => {
   return window.fetch(process.env.API, {method: 'GET', mode: 'cors'})
   .then(res => res.json())
   .then(strings => strings.map(s => new Date(s).valueOf()))
-  .then(timestamps => dispatch({ type: RECEIVE_VOM_LIST, voms: timestamps }))
+  .then(timestamps => dispatch({ type: RECEIVE_VOM_LIST, list: timestamps }))
 }
 
 export const createVom = timestamp => dispatch => {
