@@ -63,7 +63,6 @@ module.exports = {
   plugins: [
     extractSass,
     new webpack.DefinePlugin({
-      'process.env.API': JSON.stringify('https://u4v2l5ctsd.execute-api.us-west-2.amazonaws.com/dev/voms'),
       'process.env.region': JSON.stringify('us-west-2'),
       'process.env.fbAppId': JSON.stringify('1667153033579683'),
       'process.env.cognito.poolId': JSON.stringify('us-west-2:6feafa03-295d-4dc6-91cb-564529e879ab'),

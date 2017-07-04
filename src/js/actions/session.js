@@ -5,12 +5,12 @@ export const FB_INIT_START = 'FB_INIT_START'
 export const FB_INIT_COMPLETE = 'FB_INIT_COMPLETE'
 
 export const login = (dispatch, getState) => {
-  const FB = getState().session.client
+  const FB = getState().session.fbClient
   dispatch({type: FB_LOGIN_START})
 
   FB.login(response => {
     if (response.status === 'connected') {
-      dispatch({type: FB_LOGIN_COMPLETE, user: response.authResponse})
+      dispatch({type: FB_LOGIN_COMPLETE, accessToken: response.authResponse.accessToken})
     } else {
       dispatch({type: FB_LOGIN_FAILED, status: response.status})
     }
@@ -19,9 +19,13 @@ export const login = (dispatch, getState) => {
 
 export const init = FB => dispatch => {
   FB.init({ appId: process.env.fbAppId, version: 'v2.9' })
-  dispatch({type: FB_INIT_START, client: FB})
+  dispatch({type: FB_INIT_START, fbClient: FB})
 
   FB.getLoginStatus(response => {
-    dispatch({type: FB_INIT_COMPLETE, user: response.authResponse})
+    dispatch({type: FB_INIT_COMPLETE})
+
+    if (response.status === 'connected') {
+      dispatch({type: FB_LOGIN_COMPLETE, accessToken: response.authResponse.accessToken})
+    }
   })
 }

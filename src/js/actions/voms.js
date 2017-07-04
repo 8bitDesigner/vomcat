@@ -3,18 +3,50 @@ export const RECEIVE_VOM_LIST = 'RECEIVE_VOM_LIST'
 export const REQUEST_VOM_CREATION = 'REQUEST_VOM_CREATION'
 export const RECEIVE_VOM_CREATION = 'RECEIVE_VOM_CREATION'
 
-export const fetchVoms = () => dispatch => {
+export const fetchVoms = () => (dispatch, getState) => {
+  const client = getState().session.awsClient
+  const year = new Date().getFullYear()
+
   dispatch({type: REQUEST_VOM_LIST})
 
-  return window.fetch(process.env.API, {method: 'GET', mode: 'cors'})
-  .then(res => res.json())
-  .then(strings => strings.map(s => new Date(s).valueOf()))
-  .then(timestamps => dispatch({ type: RECEIVE_VOM_LIST, list: timestamps }))
+  client.query({
+    ConsistentRead: true,
+    ScanIndexForward: false,
+    ProjectionExpression: 'vom_date',
+    KeyConditionExpression: '#yr = :yyyy',
+    ExpressionAttributeNames: { '#yr': 'year' },
+    ExpressionAttributeValues: { ':yyyy': year }
+  }, function (err, response) {
+    if (err) {
+      console.error(err)
+    } else {
+      const timestamps = response.Items.map(i => new Date(i.vom_date)).reverse()
+      console.log(timestamps)
+      dispatch({ type: RECEIVE_VOM_LIST, list: timestamps })
+    }
+  })
 }
 
-export const createVom = timestamp => dispatch => {
+export const createVom = timestamp => (dispatch, getState) => {
+  const client = getState().session.awsClient
+  const now = new Date().valueOf()
+  const year = new Date().getFullYear()
+
   dispatch({type: REQUEST_VOM_CREATION})
 
-  return window.fetch(process.env.API, {method: 'POST', mode: 'cors'})
-  .then(() => dispatch({ type: RECEIVE_VOM_CREATION, timestamp }))
+  client.put({
+    Item: {
+      year: year,
+      created_at: now,
+      updated_at: now,
+      vom_date: timestamp,
+      reporter: 'Web Client'
+    }
+  }, function (err, response) {
+    if (err) {
+      console.error(err)
+    } else {
+      dispatch({ type: RECEIVE_VOM_CREATION, timestamp })
+    }
+  })
 }

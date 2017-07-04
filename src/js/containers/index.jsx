@@ -8,7 +8,7 @@ class VomApp extends React.Component {
   render () {
     const {voms, session, dispatch} = this.props
 
-    if (session.user) {
+    if (session.awsClient) {
       return <VomList dispatch={dispatch} voms={voms} />
     } else {
       return <FBLoginButton dispatch={dispatch} session={session} />
