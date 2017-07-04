@@ -2,6 +2,14 @@ import React from 'react'
 import moment from 'moment'
 
 export default class VomSince extends React.Component {
+  componentDidMount () {
+    this.interval = setInterval(this.forceUpdate.bind(this), 60000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
+
   get message () {
     if (this.props.loading) {
       return 'Loading...'
