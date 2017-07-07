@@ -12,7 +12,7 @@ const initialState = {
   awsClient: null,
   initing: true,
   loggingIn: false,
-  user: null,
+  userID: null,
   error: null
 }
 
@@ -28,7 +28,12 @@ export default function (state = initialState, action) {
       return {...state, loggingIn: true, error: null}
 
     case FB_LOGIN_COMPLETE:
-      return {...state, loggingIn: false, awsClient: awsClientFactory(action.accessToken)}
+      return {
+        ...state,
+        loggingIn: false,
+        userID: action.userID,
+        awsClient: awsClientFactory(action.accessToken, 'vom-users-dev')
+      }
 
     case FB_LOGIN_FAILED:
       return {...state, loggingIn: false, error: action.error}
