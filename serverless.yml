@@ -1,0 +1,76 @@
+# For full config options, check the docs: docs.serverless.com
+service: vomcat
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: us-west-2
+  profile: vomcat
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+package:
+  exclude:
+    - node_modules/**
+    - .git/**
+
+functions:
+  list:
+    handler: voms.list
+    events:
+    - http:
+        method: get
+        path: voms
+        cors: true
+
+  create:
+    handler: voms.create
+    events:
+    - http:
+        method: post
+        path: voms
+        cors: true
+
+  delete:
+    handler: voms.destroy
+    events:
+    - http:
+        method: delete
+        path: voms/{id}
+        cors: true
+
+resources:
+  Resources:
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: year
+            AttributeType: N
+          -
+            AttributeName: vom_date
+            AttributeType: N
+        KeySchema:
+          -
+            AttributeName: year
+            KeyType: HASH
+          -
+            AttributeName: vom_date
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}

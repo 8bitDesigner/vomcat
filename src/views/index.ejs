@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title><%= title %></title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="css/app.css"></link>
 </head>
 
 <body>
@@ -16,12 +15,7 @@
     </div>
   </nav>
 
-  <div class="container" id="ReactApp"><%- markup %></div>
-
-  <script src="/js/app.js"></script>
-  <script>
-    new App(<%- data %>).start(document.getElementById('ReactApp'))
-  </script>
+  <div class="container" id="ReactApp"></div>
 </body>
 </html>
 
