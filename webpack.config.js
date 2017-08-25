@@ -64,7 +64,7 @@ module.exports = {
     extractSass,
     new webpack.DefinePlugin({
       'process.env': {
-        API: `'https://u4v2l5ctsd.execute-api.us-west-2.amazonaws.com/dev/voms'`
+        API: `'https://u4v2l5ctsd.execute-api.us-west-2.amazonaws.com/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/voms'`
       }
     }),
     new HtmlWebpackPlugin({

@@ -7,6 +7,8 @@
     "build": "webpack",
     "deploy:s3": "aws s3 sync ./build/ s3://vomcat.com --profile vomcat",
     "deploy:invalidate": "aws cloudfront create-invalidation --profile vomcat --distribution-id=E3K6SPZLURRQ8G --paths / /index.html",
+    "deploy:lambda:dev": "cd api && apex deploy -a dev",
+    "deploy:lambda:prod": "cd api && apex deploy --env prod -a prod",
     "deploy": "npm run clean && npm run build && npm run deploy:s3 && npm run deploy:invalidate",
     "start:develop": "NODE_ENV=development webpack-dev-server",
     "start": "node ./index.js"
