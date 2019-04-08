@@ -6,7 +6,7 @@
   "profile": "admin",
   "region": "us-west-2",
   "role": "arn:aws:iam::019835463194:role/vomcat_lambda_function",
-  "runtime": "nodejs6.10",
+  "runtime": "nodejs8.10",
   "environment": {
     "DYNAMODB_TABLE": "vomcat-dev",
     "ALLOW_ORIGIN": "http://localhost:3001"
